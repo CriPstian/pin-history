@@ -1,0 +1,52 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="UTF-8"/>
+  <title>NASA Image</title>
+  <link rel='stylesheet' href='bootstrap-3.3.7/css/bootstrap.css' />
+  <link rel='stylesheet' href='cripstian.css' />
+  <script type='text/javascript' src='jquery-3.1.1.js'></script>
+  <script type='text/javascript' src='bootstrap-3.3.7/js/bootstrap.js'></script>
+  <script type='text/javascript' src='cripstian.js'></script>
+</head>
+<body>
+  <div class='container col-xs-10 col-xs-push-1'>
+    <div class='row'>
+      <div class='page-header'>
+        <h1>NASA Location Flashback</h1>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='form-group'>
+        <label for='apiKey'>API Key</label>
+        <input type='text' class='form-control' id='apiKey' value='h01VPV7cOzRNPcCDk0xTKe959uYE24rdiuXoNKYf' />
+      </div>
+      <form class='form-inline'>
+        <div class='form-group'>
+          <label for='lon'>Longitudine</lable>
+          <input type='text' class='form-control' id='lon' value='25.5322991946409' />
+        </div>
+        <div class='form-group'>
+          <label for='lat'>Latitudine</label>
+          <input type='text' class='form-control' id='lat' value='45.2517112190519' />
+        </div>
+        <button type='button' class='btn btn-primary' onclick='findLocation()'>cauta</button>
+      </form>
+    </div>
+    <div class='row hidden' id='progress-bar'>
+      <div class='progress'>
+        <div class='progress-bar' role='progressbar' aria-valuemin='0' aria-valuemax='100' id='image-progress'>0%</div>
+      </div>
+    </div>
+    <div class='row hidden' id='images-row'>
+      <div id='images-length'></div>
+      <div id='images-loaded'></div>
+      <div id='images'></div>
+      <div>
+        <button type="button" onclick="playStop()">start-stop</button>
+      </div>
+    </div>
+    
+  </div>
+</body>
+</html>
