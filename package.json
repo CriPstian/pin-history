@@ -4,6 +4,7 @@
   "description": "Display series of pictures from various places",
   "main": "index.js",
   "scripts": {
+    "script": "npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
