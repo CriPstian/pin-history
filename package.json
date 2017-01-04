@@ -1,8 +1,8 @@
 {
-  "name": "point-history",
+  "name": "pin-history",
   "version": "1.0.0",
   "description": "Display series of pictures from various places",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +11,14 @@
   ],
   "author": "CriPstian",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CriPstian/pin-history.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CriPstian/pin-history/issues"
+  },
+  "homepage": "https://github.com/CriPstian/pin-history",
   "dependencies": {
     "express": "^4.14.0"
   }
