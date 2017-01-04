@@ -95,6 +95,7 @@ function showProgressBar() {
 function hideProgressBar() {
   $('#progress-bar').addClass('hidden');
   $('#images-row').removeClass('hidden');
+  $('#map').addClass('hidden');
 }
 
 function findLocation() {
@@ -131,8 +132,31 @@ function move(percent) {
   imageProgress.text(rounded + '%');
 };
 
+function initMap() {
+  var myLatlng = {
+    lat: 26.102495,
+    lng: 44.428116
+  };
 
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: myLatlng
+  });
 
+  var marker = new google.maps.Marker({
+    position: myLatlng,
+    map: map,
+    title: 'Click to zoom'
+  });
+
+  map.addListener('click', function(data) {
+    var lat = data.latLng.lat();
+    var lng = data.latLng.lng();
+
+    $('#lat').val(lat);
+    $('#lon').val(lng);
+  });
+}
 
 
 
