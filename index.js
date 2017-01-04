@@ -8,6 +8,6 @@ app.use(express.static('public'));
 app.get('/', function(request, response) {
 	response.sendFile(path.join(__dirname + '/index.html'));
 });
-app..listen(port, function() {
+app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
 });
