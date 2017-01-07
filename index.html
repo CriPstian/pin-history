@@ -16,25 +16,47 @@
       <div class='page-header'>
         <h1>NASA Pin History</h1>
       </div>
-    </div>
+    </div>    
     <div class='row'>
-      <div class='form-group'>
-        <label for='apiKey'>API Key</label>
-        <input type='text' class='form-control' id='apiKey' autocomplete="on" />
-        <a href='https://api.nasa.gov/index.html#apply-for-an-api-key' target='_blank'>Get your API key</a>
+      <form onsubmit='findLocation(event)'>
+        <div class='col-xs-10 col-xs-push-1'>
+          <div class='row'>
+            <div class='col-xs-12 col-md-6'>
+              <div class='row'>
+                <div class='form-group'>
+                  <label for='apiKey'>API Key</label>
+                  <input type='text' class='form-control' id='apiKey' autocomplete="on" />
+                  <a href='https://api.nasa.gov/index.html#apply-for-an-api-key' target='_blank'>Get your API key</a>
+                </div>  
+              </div>
+              <div class='row'>
+                <div class='form-group'>
+                  <label for='frameNumber'>Frames</label>
+                  <input type='number' class='form-control' id='frameNumber' autocomplete="on" />
+                </div>
+              </div>  
+            </div>
+            <div class='col-xs-12 col-md-6'>
+              <div class='row'>
+                <div class='form-group col-md-11 col-md-push-1'>
+                  <label for='lon'>Longitude</label>
+                  <input type='text' class='form-control' id='lon' value='26.129124' />
+                </div>
+              </div> 
+              <div class='row'> 
+                <div class='form-group col-md-11 col-md-push-1'>
+                  <label for='lat'>Latitude</label>
+                  <input type='text' class='form-control' id='lat' value='44.425541' />
+                </div>
+              </div>
+            </div>
+            <div class='row'>
+              <button type='submit' class='btn btn-primary pull-right'>GoTo</button>
+            </div>
+          </div>
+          </form>   
       </div>
-      <form class='form-inline'>
-        <div class='form-group'>
-          <label for='lon'>Longitude</lable>
-          <input type='text' class='form-control' id='lon' value='25.5322991946409' />
-        </div>
-        <div class='form-group'>
-          <label for='lat'>Latitude</label>
-          <input type='text' class='form-control' id='lat' value='45.2517112190519' />
-        </div>
-        <button type='button' class='btn btn-primary' onclick='findLocation()'>GoTo</button>
       </form>
-      <div id="map" width='512' height='512'></div>
         
     </div>
     <div class='row hidden' id='progress-bar'>
@@ -42,15 +64,20 @@
         <div class='progress-bar' role='progressbar' aria-valuemin='0' aria-valuemax='100' id='image-progress'>0%</div>
       </div>
     </div>
-    <div class='row hidden' id='images-row'>
-      <div id='images-length'></div>
-      <div id='images-loaded'></div>
-      <div id='images'></div>
-      <div>
-        <button type="button" onclick="playStop()">start-stop</button>
+    <div class='row'>
+      <div class='col-xs-12 col-md-6 hidden' id='images-row'>
+        <div id='images'></div>
+        <div id='images-length'></div>
+        <div id='images-loaded'></div>
+        <div>
+          <button type="button" onclick="playStop()">start-stop</button>
+        </div>
       </div>
-    </div>
-    
+      <div class='col-xs-12 col-md-6'>
+        <div>&nbsp;</div>
+        <div id="map" width='512' height='512'></div>
+      </div>
+    </div> 
   </div>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEvx-ZejTDnW0uAhJ0BSXtnh4zmCGPC_I&callback=initMap">

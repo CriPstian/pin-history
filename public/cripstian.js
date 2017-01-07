@@ -30,7 +30,8 @@ function playStop() {
 function getImages() {
   showProgressBar();
   $.get(assetsLink, function(data) {
-    var array = data.results.slice(data.results.length - 50, data.results.length);
+    var frames = $('#frameNumber').val();
+    var array = data.results.slice(data.results.length - frames, data.results.length);
     var len = array.length;
     
     $('#images-length').text('Numar poze: ' + len);
@@ -86,7 +87,6 @@ function setImageObject(result, index) {
 
 function showProgressBar() {
   $('#progress-bar').removeClass('hidden');
-  $('#images-row').addClass('hidden');
   var progressBar = $('#image-progress');
   progressBar.css('width', '0');
   progressBar.text('0%');
@@ -95,10 +95,11 @@ function showProgressBar() {
 function hideProgressBar() {
   $('#progress-bar').addClass('hidden');
   $('#images-row').removeClass('hidden');
-  $('#map').addClass('hidden');
 }
 
-function findLocation() {
+function findLocation(event) {
+  event.preventDefault();
+
   var latInput = $('#lat');
   var lonInput = $('#lon');
   var apiKeyInput = $('#apiKey');
@@ -109,6 +110,7 @@ function findLocation() {
   setLinks(lon, lat, apiKey);
   setDefaults();
   getImages();
+  return false;
 };
 
 function setLinks(lon, lat, apiKey) {
@@ -134,13 +136,14 @@ function move(percent) {
 
 function initMap() {
   var myLatlng = {
-    lat: 26.102495,
-    lng: 44.428116
+    lat: 44.425541,
+    lng: 26.129124
   };
 
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: myLatlng
+    zoom: 14,
+    center: myLatlng,
+    mapTypeId: 'satellite'
   });
 
   var marker = new google.maps.Marker({
