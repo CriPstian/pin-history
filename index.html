@@ -69,8 +69,19 @@
         <div id='images'></div>
         <div id='images-length'></div>
         <div id='images-loaded'></div>
-        <div>
-          <button type="button" onclick="playStop()">start-stop</button>
+        <div class='btn-group' role='group' aria-label='controls'>
+          <button type='button' onclick="prev()" class='btn btn-warning'>
+            <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+          </button>
+          <button type='button' onclick="stop()" class='btn btn-warning'>
+            <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+          </button>
+          <button type="button" onclick="playStop()" class='btn btn-warning'>
+            <span class="glyphicon glyphicon-pause" aria-hidden="true" id='play-pause'></span>
+          </button>
+          <button type='button' onclick="next()" class='btn btn-warning'>
+            <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+          </button>
         </div>
       </div>
       <div class='col-xs-12 col-md-6'>

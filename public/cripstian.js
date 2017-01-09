@@ -6,6 +6,7 @@ var stopped = false;
 var loadedImages = 0;
 var loadedLinks = 0;
 var speed = 250;
+var assetsArray = [];
    
 function imageSrcLoad() {
   if(resultsIndex == results.length) resultsIndex = 0;
@@ -13,24 +14,71 @@ function imageSrcLoad() {
   results[resultsIndex++].image.parent().show();
   timeoutFunc = window.setTimeout(imageSrcLoad, speed);
 };
+
+function prev() {
+  stopped = true;
+  window.clearTimeout(timeoutFunc);
+  var btn = $('#play-pause');
+  btn.addClass('glyphicon-play');
+  btn.removeClass('glyphicon-pause');
+  resultsIndex--;
+  if(resultsIndex < 0) resultsIndex = results.length - 1;
+  $('#images').children().hide();
+  results[resultsIndex].image.parent().show();
+}
+
+function next() {
+  stopped = true;
+  window.clearTimeout(timeoutFunc);
+  var btn = $('#play-pause');
+  btn.addClass('glyphicon-play');
+  btn.removeClass('glyphicon-pause');
+  resultsIndex++;
+  if(resultsIndex >= results.length) resultsIndex = 0;
+  $('#images').children().hide();
+  results[resultsIndex].image.parent().show();
+}
+
+function stop() {
+  resultsIndex = 0;
+  stopped = true;
+  window.clearTimeout(timeoutFunc);
+  var btn = $('#play-pause');
+  btn.removeClass('glyphicon-pause');
+  btn.addClass('glyphicon-play');
+  $('#images').children().hide();
+  results[0].image.parent().show();
+}
    
 function playStop() {
+  var btn = $('#play-pause');
   if(stopped) {
-    console.log('starting slideshow');
     stopped = false;
     imageSrcLoad();
+    btn.removeClass('glyphicon-play');
+    btn.addClass('glyphicon-pause');
   }
   else {
-    console.log('stopping slideshow');
     stopped = true;
     window.clearTimeout(timeoutFunc);
+    btn.addClass('glyphicon-play');
+    btn.removeClass('glyphicon-pause');
   }
+};
+
+function getAssetsForLocation(paramLocation) {
+  $.get(assetsLink, function(data) {
+    assetsArray = data.results;
+  })
 };
 
 function getImages() {
   showProgressBar();
   $.get(assetsLink, function(data) {
-    var frames = $('#frameNumber').val();
+    var frames = parseInt($('#frameNumber').val());
+    if(frames === 'NaN') {
+      frames = assetsArray.length;
+    }
     var array = data.results.slice(data.results.length - frames, data.results.length);
     var len = array.length;
     
@@ -52,8 +100,7 @@ function getImages() {
               });
             }
           });
-        },
-        1000*(index + 1));
+        }, 1000*(index + 1));
     });
   });
 };
@@ -78,8 +125,8 @@ function setImageObject(result, index) {
     });
   }, (index+1)*1000, index, image);
   var div = $('<div>');
-  div.append(header);
   div.append(image);
+  div.append(header);
   div.appendTo($('#images'));
   div.hide();
   results[index].image = image;
@@ -115,7 +162,7 @@ function findLocation(event) {
 
 function setLinks(lon, lat, apiKey) {
   imageLink = earthPath + 'imagery?api_key=' + apiKey + '&lon=' + lon + '&lat=' + lat + '&date=';
-  assetsLink = earthPath + 'assets?api_key=' + apiKey + '&lon=' + lon + '&lat=' + lat + '&begin=2013-01-01';
+  assetsLink = earthPath + 'assets?api_key=' + apiKey + '&lon=' + lon + '&lat=' + lat + '&begin=2000-01-01';
 }
 
 function setDefaults() {
@@ -149,7 +196,7 @@ function initMap() {
   var marker = new google.maps.Marker({
     position: myLatlng,
     map: map,
-    title: 'Click to zoom'
+    title: 'Selected location'
   });
 
   map.addListener('click', function(data) {
@@ -158,8 +205,18 @@ function initMap() {
 
     $('#lat').val(lat);
     $('#lon').val(lng);
+
+    myLatlng = {
+      lat: lat,
+      lng: lng
+    };
+
+    this.setCenter(myLatlng);
+    this.setZoom(14);
+    marker.setPosition(myLatlng)
   });
 }
+
 
 
 
